@@ -8,10 +8,14 @@
             margin: 0;
             background-color:rgba(3,189,6,7) ; 
             }
+            #THIC{
+            font-size:70;
+            }
 		</style>
 	</head>
 	<body>
     <p>I love three.js!</p>
+    
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/master/build/three.js"></script>
 		<script>
 			const scene = new THREE.Scene();
@@ -22,7 +26,7 @@
 			document.body.appendChild( renderer.domElement );
 
 			const geometry = new THREE.BoxGeometry();
-			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			const material = new THREE.MeshBasicMaterial( { color: "rgb(105,126,231)" } );
 			const cube = new THREE.Mesh( geometry, material );
 			scene.add( cube );
 
@@ -31,13 +35,14 @@
 			const animate = function () {
 				requestAnimationFrame( animate );
 
-				cube.rotation.x += 0.06;
-				cube.rotation.y += 0.06;
+				cube.rotation.x += 0.01;
+				cube.rotation.y +=1;
 
 				renderer.render( scene, camera );
 			};
 
 			animate();
 		</script>
+        <h1 id="THIC">SPINNING CUBE</h1>
 	</body>
 </html>
