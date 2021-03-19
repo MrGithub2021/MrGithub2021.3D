@@ -8,10 +8,17 @@
             margin: 0;
             background-color:rgba(3,189,6,7) ; 
             }
+            #THIC{
+            font-size:70;
+            }
+            h1{
+            text-align: center;
+            }
 		</style>
 	</head>
 	<body>
     <p>I love three.js!</p>
+    
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/master/build/three.js"></script>
 		<script>
 			const scene = new THREE.Scene();
@@ -22,7 +29,7 @@
 			document.body.appendChild( renderer.domElement );
 
 			const geometry = new THREE.BoxGeometry();
-			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			const material = new THREE.MeshBasicMaterial( { color: "rgb(105,126,231)" } );
 			const cube = new THREE.Mesh( geometry, material );
 			scene.add( cube );
 
@@ -31,13 +38,73 @@
 			const animate = function () {
 				requestAnimationFrame( animate );
 
-				cube.rotation.x += 0.06;
-				cube.rotation.y += 0.06;
+				cube.rotation.x += 0.01;
+				cube.rotation.y +=1;
 
 				renderer.render( scene, camera );
 			};
 
 			animate();
 		</script>
+        <h1 id="THIC">SPINNING CUBE</h1>
+        <!-- Load three-elements -->
+        <p>Also, thanks three-elements!!!</p>
+<script type="module" src="https://jspm.dev/three-elements"></script>
+
+<three-game autorender>
+  <three-scene background-color="#eee">
+    <!-- Spinning dodecahedron -->
+    <three-mesh
+      scale="49"
+      cast-shadow
+      tick="object.rotation.x = object.rotation.y += 0.01;
+            object.scale.setScalar(4 + Math.cos(Date.now() / 700) * 0.6)"
+    >
+      <three-dodecahedron-buffer-geometry></three-dodecahedron-buffer-geometry>
+      <three-mesh-standard-material
+        color="hotpink"
+        metalness="0.5"
+        roughness="0.5"
+      ></three-mesh-standard-material>
+    </three-mesh>
+
+    <!-- A floor. We like shadows. Shadows good! -->
+    <three-mesh rotation.x="-90deg" position.y="-7" receive-shadow>
+      <three-plane-buffer-geometry
+        args="1000, 1000, 32"
+      ></three-plane-buffer-geometry>
+      <three-mesh-standard-material color="#888"></three-mesh-standard-material>
+    </three-mesh>
+
+    <!-- Orbit controls, because they're cool! -->
+    <three-orbit-controls></three-orbit-controls>
+
+    <!-- Lights -->
+    <three-ambient-light intensity="0"></three-ambient-light>
+    <three-directional-light
+      intensity="0.8"
+      position="40, 40, 20"
+      cast-shadow
+    ></three-directional-light>
+  </three-scene>
+</three-game>
+<h1>A spinning dodecahedron.</h1>
+<div id = "pyramid"></div>
+<script>
+var pyramid = document.getElementById("pyramid");
+var size = prompt("Enter how much cuties you want!");
+function createPyramid(rows)
+{  
+   var pyramid = document.getElementById("pyramid");
+    for (let i = 0; i < rows; i++) {
+        var output = '';
+        for (let j =0; j < rows - i; j++) output += ' ';
+        for (let k = 0; k <= i; k++) output += '🐹';
+        pyramid.innerHTML= output; 
+    } 
+}
+
+createPyramid(size); // pass number as row of pyramid you want.
+</script>
 	</body>
 </html>
