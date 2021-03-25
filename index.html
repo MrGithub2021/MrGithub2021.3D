@@ -107,5 +107,56 @@ function createPyramid(rows)
 createPyramid(size); // pass number as row of pyramid you want.
 </script>
 		<p>If you want VR, click this: <a href = "https://mrgithub2021.github.io/MrGithub2021.Vr/">My VR Website.</a></p>
+        <h1>Enter in how many hamsters you have!</h1>
+  <form id="todo-form" target="self" method="get">
+    
+    <label>Enter how many:
+       <input type="text" id="input">
+    </label>
+    
+    <button type="submit">Submit</button>
+  </form>
+  
+  <h1>All Results</h1>
+  <ul id="result-list">
+  </ul>
+  
+  <script src='https://cdn.jsdelivr.net/npm/sql.js@0.4.0/js/sql.js'></script>
+<script>
+    /* All of this should create the database and remind us how much cuties they first entered.*/
+    var db = new SQL.Database();
+    db.run("CREATE TABLE todos (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT);");
+    var insertTodo = function(todo) {
+      db.run("INSERT INTO todos (item) VALUES (?)", [todo]);  
+    };
+    var getAllTodos = function() {
+      var results = db.exec("SELECT item FROM todos");
+      var todos = [];
+      for (var i = 0; i < results[0].values.length; i++) {
+        todos.push(results[0].values[i]);
+      }
+      return todos;
+    };
+    var displayTodos = function(todos) {
+       var list = document.getElementById("result-list");
+       list.innerHTML = "";
+       for (var i = 0; i < todos.length; i++) {
+         var listItem = document.createElement('li');
+         listItem.innerText = todos[i];
+         list.appendChild(listItem);
+       }
+    };
+    var form = document.getElementById("todo-form");
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        insertTodo(document.getElementById("input").value);
+        console.log("Done!");
+        console.log("1 record added.")
+        displayTodos(getAllTodos());
+        form.reset();
+    });
+    //We are done!
+</script>
+  
 	</body>
 </html>
